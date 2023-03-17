@@ -1,0 +1,68 @@
+﻿@model PaginatedList<EMS.Dtos.ResponseDtos.DepartmentResponse>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>Department List</h1>
+
+<p>
+    <a asp-action="AddOrEdit">Create New</a>
+</p>
+<div class="col-md-9 d-flex">
+    <div class="col-md-4">
+        <form asp-controller="Department" asp-action="Search" method="get">
+            <p>
+                <input type="text" name="searchKey" />
+                <input type="submit" value="Search" />
+            </p>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <a asp-controller="Department" asp-action="List">Clear Search</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                CreatedDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "AddOrEdit", new { departmentId = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteConfirmation", new { departmentId = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="List"
+   asp-route-pageNo="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="List"
+   asp-route-pageNo="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
