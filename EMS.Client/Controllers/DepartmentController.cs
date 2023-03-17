@@ -85,6 +85,11 @@ public class DepartmentController : Controller
     {
         try
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddOrEdit", request);
+            }
+
             HttpClient httpClient = _httpClientFactory.CreateClient("EMSApi");
             if (request.Id == null)
             {

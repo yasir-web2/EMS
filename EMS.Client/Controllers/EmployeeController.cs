@@ -72,7 +72,7 @@ namespace EMS.Client.Controllers
                 if (employeeId == null)
                 {
                     ViewBag.Departments = departments.ToSelectListItems();
-                    return View("AddOrEdit", new EmployeeRequest());
+                    return View("AddOrEdit", new EmployeeRequest { DateOfBirth = DateTime.Now.AddYears(-20)});
                 }
 
                 EmployeeRequest model = await GetEmployeeAsync(employeeId, cancellationToken);
@@ -91,6 +91,11 @@ namespace EMS.Client.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("AddOrEdit", request);
+                }
+
                 HttpClient httpClient = _httpClientFactory.CreateClient("EMSApi");
                 if (request.Id == null)
                 {
