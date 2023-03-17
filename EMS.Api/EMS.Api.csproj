@@ -19,4 +19,10 @@
     <ProjectReference Include="..\EMS.DL\EMS.DL.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Include="EMSAppDb;EMSAppDb-shm;EMSAppDb-wal">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>

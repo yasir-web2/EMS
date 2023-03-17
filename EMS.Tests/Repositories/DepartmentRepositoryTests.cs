@@ -172,4 +172,20 @@ public class DepartmentRepositoryTests
         departments.Count().Should().Be(1);
         departments.FirstOrDefault().Name.Should().Contain(searchKey);
     }
+
+    [Fact]
+    public async Task GetDropdownAsync_ShouldReturnAllDepartmentsIdAndName()
+    {
+        // Arrange
+        DbHelper.AddDepartments(_dbContext);
+
+        // Act
+        IEnumerable<DropdownResponse> departments = await _departmentRepository.GetDropdownAsync(It.IsAny<CancellationToken>());
+
+        // Assert
+        departments.Should().NotBeNull();
+        departments.Any().Should().Be(true);
+        departments.Count().Should().Be(2);
+        departments.All(x => x.Id != Guid.Empty && !string.IsNullOrWhiteSpace(x.Name));
+    }
 }
