@@ -72,7 +72,7 @@ namespace EMS.Client.Controllers
                 if (employeeId == null)
                 {
                     ViewBag.Departments = departments.ToSelectListItems();
-                    return View("AddOrEdit", new EmployeeRequest { DateOfBirth = DateTime.Now.AddYears(-20)});
+                    return View("AddOrEdit", new EmployeeRequest { DateOfBirth = DateTime.Now.AddYears(-20).Date});
                 }
 
                 EmployeeRequest model = await GetEmployeeAsync(employeeId, cancellationToken);

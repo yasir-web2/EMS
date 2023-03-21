@@ -4,6 +4,16 @@ namespace EMS.Tests.Helpers;
 
 public static class DataHelper
 {
+    public static Department GetDepartment()
+    {
+        return new Department
+        {
+            CreatedDate = DateTime.Now,
+            Id = Guid.Parse("bed64240-98e5-4b63-9469-fc961aa214c9"),
+            Name = "HR"
+        };
+    }
+
     public static List<Department> GetDepartments()
     {
         return new List<Department>
@@ -21,6 +31,24 @@ public static class DataHelper
                     Name = "IT"
                 }
             };
+    }
+
+    public static List<Department> GetDepartments(string searchKey)
+    {
+        return GetDepartments().Where(x => x.Name.Contains(searchKey)).ToList();
+    }
+
+    public static Employee GetEmployee()
+    {
+        return new Employee
+        {
+            CreatedDate = DateTime.Now,
+            DateOfBirth = DateTime.Now.AddYears(-23),
+            DepartmentId = Guid.Parse("bed64240-98e5-4b63-9469-fc961aa214c9"),
+            Email = "jhon@gmail.com",
+            Id = Guid.Parse("3045f66f-45af-4a1b-92ad-24855e2e2826"),
+            Name = "Jhon"
+        };
     }
 
     public static List<Employee> GetEmployees()
